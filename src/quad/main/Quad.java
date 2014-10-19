@@ -10,6 +10,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * Quad:Quad.java
+ * 
+ * @author Phasesaber on Oct 18, 2014
+ */
 public class Quad {
 	
 	float x = Mouse.getX(), y = Mouse.getY();

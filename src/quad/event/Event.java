@@ -2,7 +2,13 @@ package quad.event;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Quad:Event.java
+ * 
+ * @author Phasesaber on Oct 18, 2014
+ * 
+ * Event system that <i>may</i> be used.
+ */
 public class Event {
 
 	private boolean combo;
