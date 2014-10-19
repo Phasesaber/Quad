@@ -24,6 +24,7 @@ public class Quad {
 	long lastFPS;
 	final int WIDTH = 1280;
 	final int HEIGHT = 720;
+	float speed = 0.12f;
 	
 	public void start() {
 		try {
@@ -54,11 +55,22 @@ public class Quad {
 	
 	public void update(int delta) {
 		// rotate quad
-		if(Keyboard.isKeyDown(Keyboard.KEY_O))
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
+			rotation += speed * delta;
+			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
+				speed += 0.001;
+			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+				speed -= 0.001;
+			if(speed > 20)
+				speed = 0.12f;
+		}
+		else if(Keyboard.isKeyDown(Keyboard.KEY_O))
 			rotation -= 0.12f * delta;
 		else	
 			rotation += 0.08f * delta;
-		
+		if(!Keyboard.isKeyDown(Keyboard.KEY_S))
+			speed = 0.12f;
+	
 		x = Mouse.getX();
 		y = Mouse.getY();
 		
@@ -85,7 +97,10 @@ public class Quad {
 	
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
-			Display.setTitle("Quad | FPS: " + fps + " |");
+			if(Keyboard.isKeyDown(Keyboard.KEY_T))
+				Display.setTitle("Tri | FPS: " + fps + " |");
+			else
+				Display.setTitle("Quad | FPS: " + fps + " |");
 			fps = 0;
 			lastFPS += 1000;
 		}
