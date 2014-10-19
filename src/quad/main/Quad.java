@@ -120,9 +120,10 @@ public class Quad {
 			GL11.glColor3f((new Random()).nextFloat(), (new Random()).nextFloat(), (new Random()).nextFloat());
 		else if(Keyboard.isKeyDown(Keyboard.KEY_G))
 			GL11.glColor3f(-(rotation-360)/100, (rotation-180)/100, rotation/100);
-		else if(Mouse.isButtonDown(0)&&Mouse.isButtonDown(1)&&Mouse.isButtonDown(2))
+		else if(Mouse.isButtonDown(0)&&Mouse.isButtonDown(1)&&Mouse.isButtonDown(2)){
 			GL11.glColor3f(1.0f, 1.0f, 0.0f);
-		else if(Mouse.isButtonDown(2))
+			Display.setTitle("SPONGE IS THE NEW BUCKET");
+		}else if(Mouse.isButtonDown(2))
 			GL11.glColor3f(1.0f, 0.5f, 0.5f);
 		else if(Mouse.isButtonDown(0) && Mouse.isButtonDown(1))
 			GL11.glColor3f(0.5f, 1.0f, 1.0f);
@@ -144,6 +145,31 @@ public class Quad {
 			GL11.glTranslatef(x, y, 1);
 			GL11.glRotatef(rotation, 0f, 0f, 1f);
 			GL11.glTranslatef(-x, -y, 0);
+			if(Keyboard.isKeyDown(Keyboard.KEY_H)){
+				GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+					GL11.glVertex2f(x, y+300); // top of the roof
+					GL11.glVertex2f(x - 150, y + 150); // left corner of the roof
+					GL11.glVertex2f(x + 150, y + 150); // right corner of the roof
+					GL11.glVertex2f(x - 150, y - 150); // bottom left corner of the house
+					GL11.glVertex2f(x + 150, y - 150); //bottom right corner of the house
+				GL11.glEnd();
+				
+			}else if(Keyboard.isKeyDown(Keyboard.KEY_F)){	
+				GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+					GL11.glVertex2f(x, y);
+					GL11.glVertex2f(x+150, y+130);
+					GL11.glVertex2f(x+150, y-130);
+					GL11.glVertex2f(x, y);
+					GL11.glVertex2f(x-150, y+130);
+					GL11.glVertex2f(x-150, y-130);
+					GL11.glVertex2f(x, y);
+					GL11.glVertex2f(x+130, y+150);
+					GL11.glVertex2f(x-130, y+150);
+					GL11.glVertex2f(x, y);
+					GL11.glVertex2f(x+130, y-150);
+					GL11.glVertex2f(x-130, y-150);
+				GL11.glEnd();
+			}else{
 				if(Keyboard.isKeyDown(Keyboard.KEY_T))
 					GL11.glBegin(GL11.GL_TRIANGLES);
 				else
@@ -166,6 +192,7 @@ public class Quad {
 							GL11.glVertex2f(x - 150, y + 150);
 						GL11.glEnd();
 					}
+			}
 		GL11.glPopMatrix();
 	}
 	
