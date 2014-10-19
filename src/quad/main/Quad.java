@@ -66,8 +66,7 @@ public class Quad {
 	 */
 	public void update(int delta) {
 		//Combos for different speeds
-		if(Keyboard.isKeyDown(Keyboard.KEY_P)){}
-		else if(Keyboard.isKeyDown(Keyboard.KEY_S)){
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
 			rotation += speed * delta;
 			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
 				speed += 0.001;
@@ -145,22 +144,29 @@ public class Quad {
 	/**
 	 * Registers the "Events" used as combos for secrets
 	 */
-	public void registerEvents(){
-		//Checks for Key held down and changes color based on that
-		if(Keyboard.isKeyDown(Keyboard.KEY_R))
-			GL11.glColor3f((new Random()).nextFloat(), (new Random()).nextFloat(), (new Random()).nextFloat());
-		else if(Keyboard.isKeyDown(Keyboard.KEY_G))
-			GL11.glColor3f(-(rotation-360)/100, (rotation-180)/100, rotation/100);
-		else if(Mouse.isButtonDown(0)&&Mouse.isButtonDown(1)&&Mouse.isButtonDown(2)){
-			GL11.glColor3f(1.0f, 1.0f, 0.0f);
+	public void registerEvents() {
+		// Checks for Key held down and changes color based on that
+		if (Keyboard.isKeyDown(Keyboard.KEY_R))
+			GL11.glColor3f((new Random()).nextFloat(),
+					(new Random()).nextFloat(), (new Random()).nextFloat());
+		else if (Keyboard.isKeyDown(Keyboard.KEY_G))
+			GL11.glColor3f(-(rotation - 360) / 100, (rotation - 180) / 100,
+					rotation / 100);
+		else if (Mouse.isButtonDown(0) && Mouse.isButtonDown(1)
+				&& Mouse.isButtonDown(2)) {
+			GL11.glColor3f(0.7f,0.7f,0.7f);
 			Display.setTitle("SPONGE IS THE NEW BUCKET");
-		}else if(Mouse.isButtonDown(2))
+		}else if(Mouse.isButtonDown(0)&&Mouse.isButtonDown(2))
+			GL11.glColor3f(1.0f, 0.5f, 1.0f);
+		else if(Mouse.isButtonDown(1)&&Mouse.isButtonDown(2))
+			GL11.glColor3f(1.0f, 1.0f, 0.5f);
+		else if (Mouse.isButtonDown(2))
 			GL11.glColor3f(1.0f, 0.5f, 0.5f);
-		else if(Mouse.isButtonDown(0) && Mouse.isButtonDown(1))
+		else if (Mouse.isButtonDown(0) && Mouse.isButtonDown(1))
 			GL11.glColor3f(0.5f, 1.0f, 1.0f);
-		else if(Mouse.isButtonDown(0))
+		else if (Mouse.isButtonDown(0))
 			GL11.glColor3f(0.5f, 0.5f, 1.0f);
-		else if(Mouse.isButtonDown(1))
+		else if (Mouse.isButtonDown(1))
 			GL11.glColor3f(0.5f, 1.0f, 0.5f);
 		else
 			GL11.glColor3f(10, 10, 10);
