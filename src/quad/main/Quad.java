@@ -168,6 +168,20 @@ public class Quad {
 					GL11.glVertex2f(x, y);
 					GL11.glVertex2f(x+130, y-150);
 					GL11.glVertex2f(x-130, y-150);
+					if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+						GL11.glVertex2f(x+150, y+130);
+						GL11.glVertex2f(x+300, y);
+						GL11.glVertex2f(x+150, y-130);
+						GL11.glVertex2f(x-150, y+130);
+						GL11.glVertex2f(x-300, y);
+						GL11.glVertex2f(x-150, y-130);
+						GL11.glVertex2f(x, y+300);
+						GL11.glVertex2f(x-130, y+150);
+						GL11.glVertex2f(x+130, y+150);
+						GL11.glVertex2f(x, y-300);
+						GL11.glVertex2f(x-130, y-150);
+						GL11.glVertex2f(x+130, y-150);
+					}
 				GL11.glEnd();
 			}else{
 				if(Keyboard.isKeyDown(Keyboard.KEY_T))
