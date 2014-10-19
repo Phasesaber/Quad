@@ -17,6 +17,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class Quad {
 	
+	//Variables
 	float x = Mouse.getX(), y = Mouse.getY();
 	float rotation = 0;
 	long lastFrame;
@@ -26,8 +27,12 @@ public class Quad {
 	final int HEIGHT = 720;
 	float speed = 0.12f;
 	
+	/**
+	 * Starts Game
+	 */
 	public void start() {
 		try {
+			//Setup Display
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
 			Display.setTitle("Quad");
@@ -35,26 +40,32 @@ public class Quad {
 			e.printStackTrace();
 			System.exit(0);
 		}
-
+		
 		initGL();
 		getDelta();
 		lastFPS = getTime();
-
+		
+		//Main Game Loop
 		while (!Display.isCloseRequested()) {
 			int delta = getDelta();
 			
 			update(delta);
 			renderGL();
-
+			
 			Display.update();
-			Display.sync(60);
+			Display.sync(60); //Keeps FPS at 60
 		}
-
+		
+		//Removes Display after while loop ends
 		Display.destroy();
 	}
 	
+	/**
+	 * Updates Game
+	 * @param delta
+	 */
 	public void update(int delta) {
-		// rotate quad
+		//Combos for different speeds
 		if(Keyboard.isKeyDown(Keyboard.KEY_P)){}
 		else if(Keyboard.isKeyDown(Keyboard.KEY_S)){
 			rotation += speed * delta;
@@ -75,16 +86,22 @@ public class Quad {
 		x = Mouse.getX();
 		y = Mouse.getY();
 		
+		//Makes sure square is on screen
 		if (x < 0) x = 0;
 		if (x > WIDTH) x = WIDTH;
 		if (y < 0) y = 0;
 		if (y > HEIGHT) y = HEIGHT;
 		
+		//Resets rotation to be used for things such as the gradient
 		if(rotation >= 360) rotation = 0;
 		
 		updateFPS();
 	}
 	
+	/**
+	 * Gets Delta
+	 * @return delta
+	 */
 	public int getDelta() {
 	    long time = getTime();
 	    int delta = (int) (time - lastFrame);
@@ -92,10 +109,17 @@ public class Quad {
 	    return delta;
 	}
 	
+	/**
+	 * Gets System Time
+	 * @return System Time
+	 */
 	public long getTime() {
 	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 	
+	/**
+	 * Updates the FPS on the Title
+	 */
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			if(Keyboard.isKeyDown(Keyboard.KEY_T))
@@ -108,6 +132,9 @@ public class Quad {
 		fps++;
 	}
 	
+	/**
+	 * Initializes OpenGL
+	 */
 	public void initGL() {
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
@@ -115,7 +142,11 @@ public class Quad {
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
+	/**
+	 * Registers the "Events" used as combos for secrets
+	 */
 	public void registerEvents(){
+		//Checks for Key held down and changes color based on that
 		if(Keyboard.isKeyDown(Keyboard.KEY_R))
 			GL11.glColor3f((new Random()).nextFloat(), (new Random()).nextFloat(), (new Random()).nextFloat());
 		else if(Keyboard.isKeyDown(Keyboard.KEY_G))
@@ -135,16 +166,21 @@ public class Quad {
 			GL11.glColor3f(10, 10, 10);
 	}
 	
+	/**
+	 * Renders OpenGL
+	 */
 	public void renderGL() {
-		
+		//Clears 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		
 		registerEvents();
 		
+		//Renders Shapes
 		GL11.glPushMatrix();
 			GL11.glTranslatef(x, y, 1);
 			GL11.glRotatef(rotation, 0f, 0f, 1f);
 			GL11.glTranslatef(-x, -y, 0);
+			//House Mode
 			if(Keyboard.isKeyDown(Keyboard.KEY_H)){
 				GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
 					GL11.glVertex2f(x, y+300); // top of the roof
@@ -184,6 +220,7 @@ public class Quad {
 					}
 				GL11.glEnd();
 			}else{
+				//Triangle Mode
 				if(Keyboard.isKeyDown(Keyboard.KEY_T))
 					GL11.glBegin(GL11.GL_TRIANGLES);
 				else
@@ -193,6 +230,7 @@ public class Quad {
 						GL11.glVertex2f(x + 150, y + 150);
 						GL11.glVertex2f(x - 150, y + 150);
 					GL11.glEnd();
+					//Copy of Square
 					if(Keyboard.isKeyDown(Keyboard.KEY_C)){
 						GL11.glRotatef(0, 0f, 0f, 0f);
 						GL11.glTranslatef(x, y, 0);
