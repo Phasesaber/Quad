@@ -22,7 +22,7 @@ public class Quad {
 	long lastFrame;
 	int fps;
 	long lastFPS;
-	final int WIDTH = 1280;
+	final int WIDTH = 1080;
 	final int HEIGHT = 720;
 	float speed = 0.12f;
 	
@@ -117,6 +117,12 @@ public class Quad {
 	public void registerEvents(){
 		if(Keyboard.isKeyDown(Keyboard.KEY_R))
 			GL11.glColor3f((new Random()).nextFloat(), (new Random()).nextFloat(), (new Random()).nextFloat());
+		else if(Keyboard.isKeyDown(Keyboard.KEY_G))
+			GL11.glColor3f(-(rotation-360)/100, (rotation-180)/100, rotation/100);
+		else if(Mouse.isButtonDown(0)&&Mouse.isButtonDown(1)&&Mouse.isButtonDown(2))
+			GL11.glColor3f(1.0f, 1.0f, 0.0f);
+		else if(Mouse.isButtonDown(2))
+			GL11.glColor3f(1.0f, 0.5f, 0.5f);
 		else if(Mouse.isButtonDown(0) && Mouse.isButtonDown(1))
 			GL11.glColor3f(0.5f, 1.0f, 1.0f);
 		else if(Mouse.isButtonDown(0))
@@ -125,9 +131,6 @@ public class Quad {
 			GL11.glColor3f(0.5f, 1.0f, 0.5f);
 		else
 			GL11.glColor3f(10, 10, 10);
-		
-		//Gradient for rotation
-		//GL11.glColor3f(-(rotation-180)/100, (rotation-90)/100, rotation/100);
 	}
 	
 	public void renderGL() {
@@ -140,15 +143,28 @@ public class Quad {
 			GL11.glTranslatef(x, y, 1);
 			GL11.glRotatef(rotation, 0f, 0f, 1f);
 			GL11.glTranslatef(-x, -y, 0);
-			if(Keyboard.isKeyDown(Keyboard.KEY_T))
-				GL11.glBegin(GL11.GL_TRIANGLES);
-			else
-				GL11.glBegin(GL11.GL_QUADS);
-					GL11.glVertex2f(x - 150, y - 150);
-					GL11.glVertex2f(x + 150, y - 150);
-					GL11.glVertex2f(x + 150, y + 150);
-					GL11.glVertex2f(x - 150, y + 150);
-			GL11.glEnd();
+				if(Keyboard.isKeyDown(Keyboard.KEY_T))
+					GL11.glBegin(GL11.GL_TRIANGLES);
+				else
+					GL11.glBegin(GL11.GL_QUADS);
+						GL11.glVertex2f(x - 150, y - 150);
+						GL11.glVertex2f(x + 150, y - 150);
+						GL11.glVertex2f(x + 150, y + 150);
+						GL11.glVertex2f(x - 150, y + 150);
+					GL11.glEnd();
+					if(Keyboard.isKeyDown(Keyboard.KEY_C)){
+						GL11.glRotatef(0, 0f, 0f, 0f);
+						GL11.glTranslatef(x, y, 0);
+						if(Keyboard.isKeyDown(Keyboard.KEY_T))
+							GL11.glBegin(GL11.GL_TRIANGLES);
+						else
+							GL11.glBegin(GL11.GL_QUADS);
+							GL11.glVertex2f(x - 150, y - 150);
+							GL11.glVertex2f(x + 150, y - 150);
+							GL11.glVertex2f(x + 150, y + 150);
+							GL11.glVertex2f(x - 150, y + 150);
+						GL11.glEnd();
+					}
 		GL11.glPopMatrix();
 	}
 	
