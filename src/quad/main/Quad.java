@@ -55,7 +55,8 @@ public class Quad {
 	
 	public void update(int delta) {
 		// rotate quad
-		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
+		if(Keyboard.isKeyDown(Keyboard.KEY_P)){}
+		else if(Keyboard.isKeyDown(Keyboard.KEY_S)){
 			rotation += speed * delta;
 			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
 				speed += 0.001;
