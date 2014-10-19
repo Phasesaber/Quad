@@ -7,7 +7,7 @@ import java.util.List;
  * 
  * @author Phasesaber on Oct 18, 2014
  * 
- * Event system that <i>may</i> be used.
+ * Event system that <i><u><b>may</b></u></i> be used.
  */
 public class Event {
 

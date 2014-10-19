@@ -24,7 +24,7 @@ public class Quad {
 	long lastFPS;
 	final int WIDTH = 1280;
 	final int HEIGHT = 720;
-
+	
 	public void start() {
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
@@ -110,7 +110,9 @@ public class Quad {
 			GL11.glColor3f(0.5f, 1.0f, 0.5f);
 		else
 			GL11.glColor3f(10, 10, 10);
-		  //GL11.glColor3f(-(rotation-180)/100, (rotation-90)/100, rotation/100);
+		
+		//Gradient for rotation
+		//GL11.glColor3f(-(rotation-180)/100, (rotation-90)/100, rotation/100);
 	}
 	
 	public void renderGL() {
@@ -123,11 +125,14 @@ public class Quad {
 			GL11.glTranslatef(x, y, 1);
 			GL11.glRotatef(rotation, 0f, 0f, 1f);
 			GL11.glTranslatef(-x, -y, 0);
-			GL11.glBegin(GL11.GL_QUADS);
-				GL11.glVertex2f(x - 150, y - 150);
-				GL11.glVertex2f(x + 150, y - 150);
-				GL11.glVertex2f(x + 150, y + 150);
-				GL11.glVertex2f(x - 150, y + 150);
+			if(Keyboard.isKeyDown(Keyboard.KEY_T))
+				GL11.glBegin(GL11.GL_TRIANGLES);
+			else
+				GL11.glBegin(GL11.GL_QUADS);
+					GL11.glVertex2f(x - 150, y - 150);
+					GL11.glVertex2f(x + 150, y - 150);
+					GL11.glVertex2f(x + 150, y + 150);
+					GL11.glVertex2f(x - 150, y + 150);
 			GL11.glEnd();
 		GL11.glPopMatrix();
 	}
